@@ -20,7 +20,8 @@
   "homepage": "https://github.com/Dhilipkumar13/Node_JS/tree/df616a8f2abcfb5387f7c0d6390fa3686982084c#readme",
   "dependencies": {
     "dotenv": "^16.4.7",
-    "express": "^4.21.2"
+    "express": "^4.21.2",
+    "express-async-handler": "^1.2.0"
   },
   "devDependencies": {
     "nodemon": "^3.1.9"
