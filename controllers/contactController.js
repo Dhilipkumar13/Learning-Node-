@@ -2,15 +2,18 @@ const asyncHandler = require("express-async-handler")
 const Contacts = require("../modules/contactModule")
 
 const getContacts = asyncHandler(  async (req,res) =>{
+
     const contact = await Contacts.find()
     res.status(200).json(contact)
+
 })
 
 const createContact = asyncHandler( async (req,res) =>{
+
     const {name,email,phone} = req.body
     // console.log("single",name,phone,email)
     // console.log("Body of contact",req.body);
-
+    
     if(!name || !email || !phone){
         res.status(400)
         throw new Error("All fields are mandatory !")
@@ -37,6 +40,7 @@ const getContact = asyncHandler( async (req,res) =>{
 })
 
 const updateContact = asyncHandler( async (req,res) =>{
+
     const contact = await Contacts.findById(req.params.id)
   //  console.log("get contact",req.params.id,contact)
     if(!contact)
@@ -53,6 +57,7 @@ const updateContact = asyncHandler( async (req,res) =>{
 })
 
 const deleteContact = asyncHandler( async (req,res) =>{
+
     const contact = await Contacts.findById(req.params.id)
   //  console.log("get contact",req.params.id,contact)
     if(!contact)

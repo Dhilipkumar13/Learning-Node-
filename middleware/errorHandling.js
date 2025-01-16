@@ -1,5 +1,8 @@
-const {} = require("../constant")
+const {VALIDATION_ERROR,UNAUTHORIZED,FORBIDDEN,NOT_FOUND,SERVER_ERROR} = require("../constant").constants
+
 const errorHandle = (err,req,res,next) =>{
+
+    //console.log(VALIDATION_ERROR,UNAUTHORIZED,FORBIDDEN,NOT_FOUND,SERVER_ERROR)
     const statusCode = res.statusCode ? res.statusCode : 500 
     switch (statusCode) {
         case VALIDATION_ERROR:

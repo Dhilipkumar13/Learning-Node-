@@ -10,6 +10,8 @@ connectDb()
 
 app.use(express.json())
 app.use("/api/contacts", require("./routes/contactRoutes"))
+app.use("/api/user", require("./routes/userRoutes"))
+
 app.use(errorHandle)
 
 app.get("/", (req, res) => {
