@@ -3,7 +3,7 @@ const Contacts = require("../modules/contactModule")
 
 const getContacts = asyncHandler(  async (req,res) =>{
 
-    const contact = await Contacts.find()
+    const contact = await Contacts.find({user_id:req.user.id})
     res.status(200).json(contact)
 
 })
@@ -18,10 +18,17 @@ const createContact = asyncHandler( async (req,res) =>{
         res.status(400)
         throw new Error("All fields are mandatory !")
     }
+
+    const checkContacts = await Contacts.findOne({user_id:req.user.id})
+    if(checkContacts){
+        res.status(400)
+        throw new Error("contact already Exist!")
+    }
     const contact = await Contacts.create({
         name,
         email,
-        phone
+        phone,
+        user_id:req.user.id
     }) 
 
     res.status(201).json(contact)
@@ -36,6 +43,10 @@ const getContact = asyncHandler( async (req,res) =>{
         res.status(404);
         throw new Error("Not Found")
     }
+    if(contact.user_id.toString() !== req.user.id){
+        res.status(403)
+        throw new Error("Not Found")
+    }
     res.status(200).json(contact)
 })
 
@@ -46,6 +57,10 @@ const updateContact = asyncHandler( async (req,res) =>{
     if(!contact)
     {
         res.status(404);
+        throw new Error("Not Found")
+    }
+    if(contact.user_id.toString() !== req.user.id){
+        res.status(403)
         throw new Error("Not Found")
     }
     const updatedContact = await Contacts.findByIdAndUpdate(
